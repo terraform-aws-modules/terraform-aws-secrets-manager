@@ -59,11 +59,11 @@ module "secrets_manager" {
   create_policy       = true
   block_public_policy = true
   policy_statements = {
-    read = {
+    lambda = {
       sid = "LambdaReadWrite"
       principals = [{
         type        = "AWS"
-        identifiers = ["arn:aws:lambda:us-east-1:123456789012:function:my-function"]
+        identifiers = ["arn:aws:iam:1234567890:role/lambda-function"]
       }]
       actions = [
         "secretsmanager:DescribeSecret",
@@ -71,6 +71,15 @@ module "secrets_manager" {
         "secretsmanager:PutSecretValue",
         "secretsmanager:UpdateSecretVersionStage",
       ]
+      resources = ["*"]
+    }
+    read = {
+      sid = "AllowAccountRead"
+      principals = [{
+        type        = "AWS"
+        identifiers = ["arn:aws:iam::1234567890:root"]
+      }]
+      actions   = ["secretsmanager:DescribeSecret"]
       resources = ["*"]
     }
   }
