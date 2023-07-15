@@ -51,7 +51,9 @@ module "secrets_manager" {
   }
 
   # Version
-  secret_string = "ThisIsMySuperSecretString12356!&*()"
+  create_random_password           = true
+  random_password_length           = 64
+  random_password_override_special = "!@#$%^&*()_+"
 
   tags = local.tags
 }
