@@ -23,7 +23,7 @@ module "wrapper" {
   version_stages                   = try(each.value.version_stages, var.defaults.version_stages, null)
   create_random_password           = try(each.value.create_random_password, var.defaults.create_random_password, false)
   random_password_length           = try(each.value.random_password_length, var.defaults.random_password_length, 32)
-  random_password_override_special = try(each.value.random_password_override_special, var.defaults.random_password_override_special, "!#$%&*()-_=+[]{}<>:?")
+  random_password_override_special = try(each.value.random_password_override_special, var.defaults.random_password_override_special, "!@#$%&*()-_=+[]{}<>:?")
   enable_rotation                  = try(each.value.enable_rotation, var.defaults.enable_rotation, false)
   rotation_lambda_arn              = try(each.value.rotation_lambda_arn, var.defaults.rotation_lambda_arn, "")
   rotation_rules                   = try(each.value.rotation_rules, var.defaults.rotation_rules, {})

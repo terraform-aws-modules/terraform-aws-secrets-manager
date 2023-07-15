@@ -133,7 +133,7 @@ variable "random_password_length" {
 variable "random_password_override_special" {
   description = "Supply your own list of special characters to use for string generation. This overrides the default character list in the special argument"
   type        = string
-  default     = "!#$%&*()-_=+[]{}<>:?"
+  default     = "!@#$%&*()-_=+[]{}<>:?"
 }
 
 ################################################################################
