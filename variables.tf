@@ -52,7 +52,7 @@ variable "recovery_window_in_days" {
 
 variable "replica" {
   description = "Configuration block to support secret replication"
-  type        = any
+  type        = map(any)
   default     = {}
 }
 
@@ -80,7 +80,7 @@ variable "override_policy_documents" {
 
 variable "policy_statements" {
   description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
-  type        = any
+  type        = map(any)
   default     = {}
 }
 
@@ -154,6 +154,6 @@ variable "rotation_lambda_arn" {
 
 variable "rotation_rules" {
   description = "A structure that defines the rotation configuration for this secret"
-  type        = any
+  type        = map(any)
   default     = {}
 }
