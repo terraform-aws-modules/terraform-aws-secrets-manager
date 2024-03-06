@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v1.1.1...v1.1.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* Update CI workflow versions to remove deprecated runtime warnings ([#5](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/issues/5)) ([4a88afe](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/commit/4a88afe383b2b2fb4d4c2c9c0802ad407e60462b))
+
 ### [1.1.1](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v1.1.0...v1.1.1) (2023-08-10)
 
 
