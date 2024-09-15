@@ -22,6 +22,12 @@ output "standard_secret_version_id" {
   value       = module.secrets_manager.secret_version_id
 }
 
+output "standard_secret_string" {
+  description = "The secret string"
+  sensitive   = true
+  value       = module.secrets_manager.secret_string
+}
+
 ################################################################################
 # Rotate
 ################################################################################
@@ -44,4 +50,10 @@ output "rotate_secret_replica" {
 output "rotate_secret_version_id" {
   description = "The unique identifier of the version of the secret"
   value       = module.secrets_manager_rotate.secret_version_id
+}
+
+output "rotate_secret_string" {
+  description = "The secret string"
+  sensitive   = true
+  value       = module.secrets_manager_rotate.secret_string
 }

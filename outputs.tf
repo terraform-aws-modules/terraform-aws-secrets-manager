@@ -17,6 +17,18 @@ output "secret_replica" {
   value       = try(aws_secretsmanager_secret.this[0].replica, null)
 }
 
+output "secret_string" {
+  description = "The secret string"
+  sensitive   = true
+  value       = try(aws_secretsmanager_secret_version.this[0].secret_string, aws_secretsmanager_secret_version.ignore_changes[0].secret_string, null)
+}
+
+output "secret_binary" {
+  description = "The secret binary"
+  sensitive   = true
+  value       = try(aws_secretsmanager_secret_version.this[0].secret_binary, aws_secretsmanager_secret_version.ignore_changes[0].secret_binary, null)
+}
+
 ################################################################################
 # Version
 ################################################################################
