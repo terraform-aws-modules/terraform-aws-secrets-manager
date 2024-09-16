@@ -64,10 +64,12 @@ No inputs.
 | <a name="output_rotate_secret_arn"></a> [rotate\_secret\_arn](#output\_rotate\_secret\_arn) | The ARN of the secret |
 | <a name="output_rotate_secret_id"></a> [rotate\_secret\_id](#output\_rotate\_secret\_id) | The ID of the secret |
 | <a name="output_rotate_secret_replica"></a> [rotate\_secret\_replica](#output\_rotate\_secret\_replica) | Attributes of the replica created |
+| <a name="output_rotate_secret_string"></a> [rotate\_secret\_string](#output\_rotate\_secret\_string) | The secret string |
 | <a name="output_rotate_secret_version_id"></a> [rotate\_secret\_version\_id](#output\_rotate\_secret\_version\_id) | The unique identifier of the version of the secret |
 | <a name="output_standard_secret_arn"></a> [standard\_secret\_arn](#output\_standard\_secret\_arn) | The ARN of the secret |
 | <a name="output_standard_secret_id"></a> [standard\_secret\_id](#output\_standard\_secret\_id) | The ID of the secret |
 | <a name="output_standard_secret_replica"></a> [standard\_secret\_replica](#output\_standard\_secret\_replica) | Attributes of the replica created |
+| <a name="output_standard_secret_string"></a> [standard\_secret\_string](#output\_standard\_secret\_string) | The secret string |
 | <a name="output_standard_secret_version_id"></a> [standard\_secret\_version\_id](#output\_standard\_secret\_version\_id) | The unique identifier of the version of the secret |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
