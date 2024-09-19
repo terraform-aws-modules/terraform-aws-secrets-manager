@@ -12,6 +12,11 @@ output "secret_id" {
   value       = try(aws_secretsmanager_secret.this[0].id, null)
 }
 
+output "secret_name" {
+  description = "The name of the secret"
+  value       = try(aws_secretsmanager_secret.this[0].name, null)
+}
+
 output "secret_replica" {
   description = "Attributes of the replica created"
   value       = try(aws_secretsmanager_secret.this[0].replica, null)
