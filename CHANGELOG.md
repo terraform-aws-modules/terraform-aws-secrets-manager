@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v1.2.0...v1.3.0) (2024-09-19)
+
+
+### Features
+
+* Add `secret_name` to outputs ([#9](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/issues/9)) ([e3d07ad](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/commit/e3d07ad1e3da4984cffb1423689afcb2e8033986))
+
 ## [1.2.0](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v1.1.2...v1.2.0) (2024-09-16)
 
 
