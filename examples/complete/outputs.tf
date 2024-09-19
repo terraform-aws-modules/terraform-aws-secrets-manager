@@ -12,6 +12,11 @@ output "standard_secret_id" {
   value       = module.secrets_manager.secret_id
 }
 
+output "standard_secret_name" {
+  description = "The name of the secret"
+  value       = module.secrets_manager.secret_name
+}
+
 output "standard_secret_replica" {
   description = "Attributes of the replica created"
   value       = module.secrets_manager.secret_replica
