@@ -153,7 +153,7 @@ module "secrets_manager" {
   }
 
   # Version
-  create_secret_string = false
+  create_secret_value = false
 
   tags = {
     Environment = "Development"
