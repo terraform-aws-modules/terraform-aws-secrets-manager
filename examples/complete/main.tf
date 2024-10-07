@@ -123,6 +123,12 @@ module "secrets_manager_disabled" {
   create = false
 }
 
+module "secrets_manager_without_any_initial_value" {
+  source = "../.."
+
+  create_secret_value = false
+}
+
 ################################################################################
 # Supporting Resources
 ################################################################################

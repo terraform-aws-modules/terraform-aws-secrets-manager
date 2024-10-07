@@ -90,7 +90,7 @@ resource "aws_secretsmanager_secret_policy" "this" {
 ################################################################################
 
 resource "aws_secretsmanager_secret_version" "this" {
-  count = var.create && !(var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
+  count = var.create && var.create_secret_value && !(var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
 
   secret_id      = aws_secretsmanager_secret.this[0].id
   secret_string  = var.create_random_password ? random_password.this[0].result : var.secret_string
@@ -99,7 +99,7 @@ resource "aws_secretsmanager_secret_version" "this" {
 }
 
 resource "aws_secretsmanager_secret_version" "ignore_changes" {
-  count = var.create && (var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
+  count = var.create && var.create_secret_value && (var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
 
   secret_id      = aws_secretsmanager_secret.this[0].id
   secret_string  = var.create_random_password ? random_password.this[0].result : var.secret_string

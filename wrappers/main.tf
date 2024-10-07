@@ -7,6 +7,7 @@ module "wrapper" {
   create                           = try(each.value.create, var.defaults.create, true)
   create_policy                    = try(each.value.create_policy, var.defaults.create_policy, false)
   create_random_password           = try(each.value.create_random_password, var.defaults.create_random_password, false)
+  create_secret_value              = try(each.value.create_secret_value, var.defaults.create_secret_value, true)
   description                      = try(each.value.description, var.defaults.description, null)
   enable_rotation                  = try(each.value.enable_rotation, var.defaults.enable_rotation, false)
   force_overwrite_replica_secret   = try(each.value.force_overwrite_replica_secret, var.defaults.force_overwrite_replica_secret, null)

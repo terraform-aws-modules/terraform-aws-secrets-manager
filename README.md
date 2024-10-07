@@ -112,6 +112,56 @@ module "secrets_manager" {
 }
 ```
 
+### Secret Manager Secret without any secret value ( string or binary ) created
+
+```hcl
+module "secrets_manager" {
+  source = "terraform-aws-modules/secrets-manager/aws"
+
+  # Secret
+  name_prefix             = "rotated-example"
+  description             = "Rotated example Secrets Manager secret"
+  recovery_window_in_days = 7
+
+  # Policy
+  create_policy       = true
+  block_public_policy = true
+  policy_statements = {
+    lambda = {
+      sid = "LambdaReadWrite"
+      principals = [{
+        type        = "AWS"
+        identifiers = ["arn:aws:iam:1234567890:role/lambda-function"]
+      }]
+      actions = [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:PutSecretValue",
+        "secretsmanager:UpdateSecretVersionStage",
+      ]
+      resources = ["*"]
+    }
+    read = {
+      sid = "AllowAccountRead"
+      principals = [{
+        type        = "AWS"
+        identifiers = ["arn:aws:iam::1234567890:root"]
+      }]
+      actions   = ["secretsmanager:DescribeSecret"]
+      resources = ["*"]
+    }
+  }
+
+  # Version
+  create_secret_string = false
+
+  tags = {
+    Environment = "Development"
+    Project     = "Example"
+  }
+}
+```
+
 ## Examples
 
 Examples codified under the [`examples`](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/tree/master/examples) are intended to give users references for how to use the module(s) as well as testing/validating changes to the source code of the module. If contributing to the project, please be sure to make any appropriate updates to the relevant examples to allow maintainers to test your changes and to keep the examples up to date for users. Thank you!
@@ -158,6 +208,7 @@ No modules.
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Determines whether a policy will be created | `bool` | `false` | no |
 | <a name="input_create_random_password"></a> [create\_random\_password](#input\_create\_random\_password) | Determines whether a random password will be generated | `bool` | `false` | no |
+| <a name="input_create_secret_value"></a> [create\_secret\_value](#input\_create\_secret\_value) | Determines whether a secret value (string or binary) will be created. Default is `true`. If you wish to create a secret without an initial value, set this to `false` | `bool` | `true` | no |
 | <a name="input_description"></a> [description](#input\_description) | A description of the secret | `string` | `null` | no |
 | <a name="input_enable_rotation"></a> [enable\_rotation](#input\_enable\_rotation) | Determines whether secret rotation is enabled | `bool` | `false` | no |
 | <a name="input_force_overwrite_replica_secret"></a> [force\_overwrite\_replica\_secret](#input\_force\_overwrite\_replica\_secret) | Accepts boolean value to specify whether to overwrite a secret with the same name in the destination Region | `bool` | `null` | no |

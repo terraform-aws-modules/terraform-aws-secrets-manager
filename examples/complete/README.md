@@ -45,6 +45,7 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | ../.. | n/a |
 | <a name="module_secrets_manager_disabled"></a> [secrets\_manager\_disabled](#module\_secrets\_manager\_disabled) | ../.. | n/a |
 | <a name="module_secrets_manager_rotate"></a> [secrets\_manager\_rotate](#module\_secrets\_manager\_rotate) | ../.. | n/a |
+| <a name="module_secrets_manager_without_any_initial_value"></a> [secrets\_manager\_without\_any\_initial\_value](#module\_secrets\_manager\_without\_any\_initial\_value) | ../.. | n/a |
 
 ## Resources
 

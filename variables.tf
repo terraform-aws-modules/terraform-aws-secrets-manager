@@ -94,6 +94,12 @@ variable "block_public_policy" {
 # Version
 ################################################################################
 
+variable "create_secret_value" {
+  description = "Determines whether a secret value (string or binary) will be created. Default is `true`. If you wish to create a secret without an initial value, set this to `false`"
+  type        = bool
+  default     = true
+}
+
 variable "ignore_secret_changes" {
   description = "Determines whether or not Terraform will ignore changes made externally to `secret_string` or `secret_binary`. Changing this value after creation is a destructive operation"
   type        = bool
