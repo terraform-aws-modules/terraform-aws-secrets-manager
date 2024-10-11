@@ -23,7 +23,7 @@ After rotating the secret, you can run `terraform plan` and see that there are n
 
 Note that this example may create resources which will incur monetary charges on your AWS bill. Run `terraform destroy` when you no longer need these resources.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -72,6 +72,6 @@ No inputs.
 | <a name="output_standard_secret_replica"></a> [standard\_secret\_replica](#output\_standard\_secret\_replica) | Attributes of the replica created |
 | <a name="output_standard_secret_string"></a> [standard\_secret\_string](#output\_standard\_secret\_string) | The secret string |
 | <a name="output_standard_secret_version_id"></a> [standard\_secret\_version\_id](#output\_standard\_secret\_version\_id) | The unique identifier of the version of the secret |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
 
 Apache-2.0 Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/blob/master/LICENSE).

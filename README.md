@@ -118,7 +118,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 
 - [Complete](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/tree/master/examples/complete)
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -190,7 +190,7 @@ No modules.
 | <a name="output_secret_replica"></a> [secret\_replica](#output\_secret\_replica) | Attributes of the replica created |
 | <a name="output_secret_string"></a> [secret\_string](#output\_secret\_string) | The secret string |
 | <a name="output_secret_version_id"></a> [secret\_version\_id](#output\_secret\_version\_id) | The unique identifier of the version of the secret |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
 
 ## License
 
