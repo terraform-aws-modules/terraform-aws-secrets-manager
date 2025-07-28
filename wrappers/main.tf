@@ -19,6 +19,7 @@ module "wrapper" {
   random_password_length           = try(each.value.random_password_length, var.defaults.random_password_length, 32)
   random_password_override_special = try(each.value.random_password_override_special, var.defaults.random_password_override_special, "!@#$%&*()-_=+[]{}<>:?")
   recovery_window_in_days          = try(each.value.recovery_window_in_days, var.defaults.recovery_window_in_days, null)
+  region                           = try(each.value.region, var.defaults.region, null)
   replica                          = try(each.value.replica, var.defaults.replica, {})
   rotation_lambda_arn              = try(each.value.rotation_lambda_arn, var.defaults.rotation_lambda_arn, "")
   rotation_rules                   = try(each.value.rotation_rules, var.defaults.rotation_rules, {})

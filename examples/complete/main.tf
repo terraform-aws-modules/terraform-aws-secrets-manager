@@ -123,6 +123,17 @@ module "secrets_manager_disabled" {
   create = false
 }
 
+module "secrets_manager_another_region" {
+  source = "../.."
+
+  region      = "us-east-1"
+  name_prefix = local.name
+
+  create_random_password = true
+
+  tags = local.tags
+}
+
 ################################################################################
 # Supporting Resources
 ################################################################################
