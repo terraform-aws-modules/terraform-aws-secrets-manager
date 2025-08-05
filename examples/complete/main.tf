@@ -38,8 +38,8 @@ module "secrets_manager" {
   # Policy
   create_policy       = true
   block_public_policy = true
-  policy_statements = {
-    read = {
+  policy_statements = [
+    {
       sid = "AllowAccountRead"
       principals = [{
         type        = "AWS"
@@ -48,12 +48,11 @@ module "secrets_manager" {
       actions   = ["secretsmanager:GetSecretValue"]
       resources = ["*"]
     }
-  }
+  ]
 
   # Version
-  create_random_password           = true
-  random_password_length           = 64
-  random_password_override_special = "!@#$%^&*()_+"
+  secret_string_wo         = ephemeral.random_password.password.result
+  secret_string_wo_version = 1
 
   tags = local.tags
 }
@@ -69,8 +68,8 @@ module "secrets_manager_rotate" {
   # Policy
   create_policy       = true
   block_public_policy = true
-  policy_statements = {
-    lambda = {
+  policy_statements = [
+    {
       sid = "LambdaReadWrite"
       principals = [{
         type        = "AWS"
@@ -83,8 +82,8 @@ module "secrets_manager_rotate" {
         "secretsmanager:UpdateSecretVersionStage",
       ]
       resources = ["*"]
-    }
-    account = {
+    },
+    {
       sid = "AccountDescribe"
       principals = [{
         type        = "AWS"
@@ -93,7 +92,7 @@ module "secrets_manager_rotate" {
       actions   = ["secretsmanager:DescribeSecret"]
       resources = ["*"]
     }
-  }
+  ]
 
   # Version
   ignore_secret_changes = true
@@ -101,7 +100,7 @@ module "secrets_manager_rotate" {
     engine   = "mariadb",
     host     = "mydb.cluster-123456789012.us-east-1.rds.amazonaws.com",
     username = "Bill",
-    password = "ThisIsMySuperSecretString12356!"
+    password = "ThisIsMySuperSecretString12356!",
     dbname   = "mydb",
     port     = 3306
   })
@@ -123,20 +122,15 @@ module "secrets_manager_disabled" {
   create = false
 }
 
-module "secrets_manager_another_region" {
-  source = "../.."
-
-  region      = "us-east-1"
-  name_prefix = local.name
-
-  create_random_password = true
-
-  tags = local.tags
-}
-
 ################################################################################
 # Supporting Resources
 ################################################################################
+
+ephemeral "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
 
 # https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets-required-permissions-function.html
 data "aws_iam_policy_document" "this" {
@@ -163,13 +157,13 @@ data "aws_iam_policy_document" "this" {
 
 module "lambda" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "~> 6.0"
+  version = "~> 8.0"
 
   function_name = local.name
   description   = "Example Secrets Manager secret rotation lambda function"
 
   handler     = "function.lambda_handler"
-  runtime     = "python3.10"
+  runtime     = "python3.12"
   timeout     = 60
   memory_size = 512
   source_path = "${path.module}/function.py"

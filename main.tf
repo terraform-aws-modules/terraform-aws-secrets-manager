@@ -16,11 +16,11 @@ resource "aws_secretsmanager_secret" "this" {
   recovery_window_in_days        = var.recovery_window_in_days
 
   dynamic "replica" {
-    for_each = var.replica
+    for_each = var.replica != null ? var.replica : {}
 
     content {
-      kms_key_id = try(replica.value.kms_key_id, null)
-      region     = try(replica.value.region, replica.key)
+      kms_key_id = replica.value.kms_key_id
+      region     = coalesce(replica.value.region, replica.key)
     }
   }
 
@@ -38,18 +38,18 @@ data "aws_iam_policy_document" "this" {
   override_policy_documents = var.override_policy_documents
 
   dynamic "statement" {
-    for_each = var.policy_statements
+    for_each = var.policy_statements != null ? var.policy_statements : []
 
     content {
-      sid           = try(statement.value.sid, null)
-      actions       = try(statement.value.actions, null)
-      not_actions   = try(statement.value.not_actions, null)
-      effect        = try(statement.value.effect, null)
-      resources     = try(statement.value.resources, null)
-      not_resources = try(statement.value.not_resources, null)
+      sid           = statement.value.sid
+      actions       = statement.value.actions
+      not_actions   = statement.value.not_actions
+      effect        = statement.value.effect
+      resources     = statement.value.resources
+      not_resources = statement.value.not_resources
 
       dynamic "principals" {
-        for_each = try(statement.value.principals, [])
+        for_each = statement.value.principals != null ? statement.value.principals : []
 
         content {
           type        = principals.value.type
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "this" {
       }
 
       dynamic "not_principals" {
-        for_each = try(statement.value.not_principals, [])
+        for_each = statement.value.not_principals != null ? statement.value.not_principals : []
 
         content {
           type        = not_principals.value.type
@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "this" {
       }
 
       dynamic "condition" {
-        for_each = try(statement.value.conditions, [])
+        for_each = statement.value.condition != null ? statement.value.condition : []
 
         content {
           test     = condition.value.test
@@ -84,9 +84,9 @@ resource "aws_secretsmanager_secret_policy" "this" {
 
   region = var.region
 
-  secret_arn          = aws_secretsmanager_secret.this[0].arn
-  policy              = data.aws_iam_policy_document.this[0].json
   block_public_policy = var.block_public_policy
+  policy              = data.aws_iam_policy_document.this[0].json
+  secret_arn          = aws_secretsmanager_secret.this[0].arn
 }
 
 ################################################################################
@@ -98,10 +98,12 @@ resource "aws_secretsmanager_secret_version" "this" {
 
   region = var.region
 
-  secret_id      = aws_secretsmanager_secret.this[0].id
-  secret_string  = var.create_random_password ? random_password.this[0].result : var.secret_string
-  secret_binary  = var.secret_binary
-  version_stages = var.version_stages
+  secret_id                = aws_secretsmanager_secret.this[0].id
+  secret_binary            = var.secret_binary
+  secret_string            = var.secret_string
+  secret_string_wo         = var.secret_string_wo
+  secret_string_wo_version = var.secret_string_wo_version
+  version_stages           = var.version_stages
 }
 
 resource "aws_secretsmanager_secret_version" "ignore_changes" {
@@ -109,10 +111,12 @@ resource "aws_secretsmanager_secret_version" "ignore_changes" {
 
   region = var.region
 
-  secret_id      = aws_secretsmanager_secret.this[0].id
-  secret_string  = var.create_random_password ? random_password.this[0].result : var.secret_string
-  secret_binary  = var.secret_binary
-  version_stages = var.version_stages
+  secret_id                = aws_secretsmanager_secret.this[0].id
+  secret_binary            = var.secret_binary
+  secret_string            = var.secret_string
+  secret_string_wo         = var.secret_string_wo
+  secret_string_wo_version = var.secret_string_wo_version
+  version_stages           = var.version_stages
 
   lifecycle {
     ignore_changes = [
@@ -121,14 +125,6 @@ resource "aws_secretsmanager_secret_version" "ignore_changes" {
       version_stages,
     ]
   }
-}
-
-resource "random_password" "this" {
-  count = var.create && var.create_random_password ? 1 : 0
-
-  length           = var.random_password_length
-  special          = true
-  override_special = var.random_password_override_special
 }
 
 ################################################################################
@@ -140,15 +136,16 @@ resource "aws_secretsmanager_secret_rotation" "this" {
 
   region = var.region
 
+  rotate_immediately  = var.rotate_immediately
   rotation_lambda_arn = var.rotation_lambda_arn
 
   dynamic "rotation_rules" {
-    for_each = [var.rotation_rules]
+    for_each = var.rotation_rules != null ? [var.rotation_rules] : []
 
     content {
-      automatically_after_days = try(rotation_rules.value.automatically_after_days, null)
-      duration                 = try(rotation_rules.value.duration, null)
-      schedule_expression      = try(rotation_rules.value.schedule_expression, null)
+      automatically_after_days = rotation_rules.value.automatically_after_days
+      duration                 = rotation_rules.value.duration
+      schedule_expression      = rotation_rules.value.schedule_expression
     }
   }
 
