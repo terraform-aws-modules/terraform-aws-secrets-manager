@@ -185,7 +185,6 @@ No modules.
 | <a name="output_secret_binary"></a> [secret\_binary](#output\_secret\_binary) | The secret binary |
 | <a name="output_secret_id"></a> [secret\_id](#output\_secret\_id) | The ID of the secret |
 | <a name="output_secret_name"></a> [secret\_name](#output\_secret\_name) | The name of the secret |
-| <a name="output_secret_region"></a> [secret\_region](#output\_secret\_region) | The region of the secret |
 | <a name="output_secret_replica"></a> [secret\_replica](#output\_secret\_replica) | Attributes of the replica created |
 | <a name="output_secret_string"></a> [secret\_string](#output\_secret\_string) | The secret string |
 | <a name="output_secret_version_id"></a> [secret\_version\_id](#output\_secret\_version\_id) | The unique identifier of the version of the secret |

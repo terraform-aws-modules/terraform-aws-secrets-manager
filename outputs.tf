@@ -34,11 +34,6 @@ output "secret_binary" {
   value       = try(aws_secretsmanager_secret_version.this[0].secret_binary, aws_secretsmanager_secret_version.ignore_changes[0].secret_binary, null)
 }
 
-output "secret_region" {
-  description = "The region of the secret"
-  value       = try(aws_secretsmanager_secret.this[0].region, null)
-}
-
 ################################################################################
 # Version
 ################################################################################
