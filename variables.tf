@@ -160,6 +160,24 @@ variable "version_stages" {
   default     = null
 }
 
+variable "create_random_password" {
+  description = "Determines whether an ephemeral random password will be generated for `secret_string_wo`"
+  type        = bool
+  default     = false
+}
+
+variable "random_password_length" {
+  description = "The length of the generated random password"
+  type        = number
+  default     = 32
+}
+
+variable "random_password_override_special" {
+  description = "Supply your own list of special characters to use for string generation. This overrides the default character list in the special argument"
+  type        = string
+  default     = "!@#$%&*()-_=+[]{}<>:?"
+}
+
 ################################################################################
 # Rotation
 ################################################################################

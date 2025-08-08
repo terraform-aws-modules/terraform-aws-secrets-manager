@@ -51,8 +51,9 @@ module "secrets_manager" {
   ]
 
   # Version
-  secret_string_wo         = ephemeral.random_password.password.result
-  secret_string_wo_version = 1
+  create_random_password           = true
+  random_password_length           = 64
+  random_password_override_special = "!@#$%^&*()_+"
 
   tags = local.tags
 }
@@ -126,12 +127,6 @@ module "secrets_manager_disabled" {
 # Supporting Resources
 ################################################################################
 
-ephemeral "random_password" "password" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
-
 # https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets-required-permissions-function.html
 data "aws_iam_policy_document" "this" {
   statement {
@@ -163,7 +158,7 @@ module "lambda" {
   description   = "Example Secrets Manager secret rotation lambda function"
 
   handler     = "function.lambda_handler"
-  runtime     = "python3.12"
+  runtime     = "python3.13"
   timeout     = 60
   memory_size = 512
   source_path = "${path.module}/function.py"

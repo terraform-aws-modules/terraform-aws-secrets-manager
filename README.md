@@ -125,6 +125,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.7 |
 
 ## Providers
 
@@ -154,6 +155,7 @@ No modules.
 | <a name="input_block_public_policy"></a> [block\_public\_policy](#input\_block\_public\_policy) | Makes an optional API call to Zelkova to validate the Resource Policy to prevent broad access to your secret | `bool` | `null` | no |
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Determines whether a policy will be created | `bool` | `false` | no |
+| <a name="input_create_random_password"></a> [create\_random\_password](#input\_create\_random\_password) | Determines whether an ephemeral random password will be generated for `secret_string_wo` | `bool` | `false` | no |
 | <a name="input_description"></a> [description](#input\_description) | A description of the secret | `string` | `null` | no |
 | <a name="input_enable_rotation"></a> [enable\_rotation](#input\_enable\_rotation) | Determines whether secret rotation is enabled | `bool` | `false` | no |
 | <a name="input_force_overwrite_replica_secret"></a> [force\_overwrite\_replica\_secret](#input\_force\_overwrite\_replica\_secret) | Accepts boolean value to specify whether to overwrite a secret with the same name in the destination Region | `bool` | `null` | no |
@@ -163,6 +165,8 @@ No modules.
 | <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Creates a unique name beginning with the specified prefix | `string` | `null` | no |
 | <a name="input_override_policy_documents"></a> [override\_policy\_documents](#input\_override\_policy\_documents) | List of IAM policy documents that are merged together into the exported document. In merging, statements with non-blank `sid`s will override statements with the same `sid` | `list(string)` | `[]` | no |
 | <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | <pre>list(object({<br/>    sid           = optional(string)<br/>    actions       = optional(list(string))<br/>    not_actions   = optional(list(string))<br/>    effect        = optional(string)<br/>    resources     = optional(list(string))<br/>    not_resources = optional(list(string))<br/>    principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    not_principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    condition = optional(list(object({<br/>      test     = string<br/>      values   = list(string)<br/>      variable = string<br/>    })))<br/>  }))</pre> | `null` | no |
+| <a name="input_random_password_length"></a> [random\_password\_length](#input\_random\_password\_length) | The length of the generated random password | `number` | `32` | no |
+| <a name="input_random_password_override_special"></a> [random\_password\_override\_special](#input\_random\_password\_override\_special) | Supply your own list of special characters to use for string generation. This overrides the default character list in the special argument | `string` | `"!@#$%&*()-_=+[]{}<>:?"` | no |
 | <a name="input_recovery_window_in_days"></a> [recovery\_window\_in\_days](#input\_recovery\_window\_in\_days) | Number of days that AWS Secrets Manager waits before it can delete the secret. This value can be `0` to force deletion without recovery or range from `7` to `30` days. The default value is `30` | `number` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where the resource(s) will be managed. Defaults to the Region set in the provider configuration | `string` | `null` | no |
 | <a name="input_replica"></a> [replica](#input\_replica) | Configuration block to support secret replication | <pre>map(object({<br/>    kms_key_id = optional(string)<br/>    region     = optional(string) # will default to the key name<br/>  }))</pre> | `null` | no |

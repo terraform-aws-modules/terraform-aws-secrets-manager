@@ -101,8 +101,8 @@ resource "aws_secretsmanager_secret_version" "this" {
   secret_id                = aws_secretsmanager_secret.this[0].id
   secret_binary            = var.secret_binary
   secret_string            = var.secret_string
-  secret_string_wo         = var.secret_string_wo
-  secret_string_wo_version = var.secret_string_wo_version
+  secret_string_wo         = var.create_random_password ? ephemeral.random_password.this[0].result : var.secret_string_wo
+  secret_string_wo_version = var.create_random_password ? coalesce(var.secret_string_wo_version, 0) : var.secret_string_wo_version
   version_stages           = var.version_stages
 }
 
@@ -114,8 +114,8 @@ resource "aws_secretsmanager_secret_version" "ignore_changes" {
   secret_id                = aws_secretsmanager_secret.this[0].id
   secret_binary            = var.secret_binary
   secret_string            = var.secret_string
-  secret_string_wo         = var.secret_string_wo
-  secret_string_wo_version = var.secret_string_wo_version
+  secret_string_wo         = var.create_random_password ? ephemeral.random_password.this[0].result : var.secret_string_wo
+  secret_string_wo_version = var.create_random_password ? coalesce(var.secret_string_wo_version, 0) : var.secret_string_wo_version
   version_stages           = var.version_stages
 
   lifecycle {
@@ -125,6 +125,14 @@ resource "aws_secretsmanager_secret_version" "ignore_changes" {
       version_stages,
     ]
   }
+}
+
+ephemeral "random_password" "this" {
+  count = var.create && var.create_random_password ? 1 : 0
+
+  length           = var.random_password_length
+  special          = true
+  override_special = var.random_password_override_special
 }
 
 ################################################################################
