@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "this" {
   override_policy_documents = var.override_policy_documents
 
   dynamic "statement" {
-    for_each = var.policy_statements != null ? var.policy_statements : []
+    for_each = var.policy_statements != null ? var.policy_statements : {}
 
     content {
       sid           = statement.value.sid

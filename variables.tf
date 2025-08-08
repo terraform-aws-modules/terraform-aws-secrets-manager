@@ -89,7 +89,7 @@ variable "override_policy_documents" {
 
 variable "policy_statements" {
   description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
-  type = list(object({
+  type = map(object({
     sid           = optional(string)
     actions       = optional(list(string))
     not_actions   = optional(list(string))

@@ -38,8 +38,8 @@ module "secrets_manager" {
   # Policy
   create_policy       = true
   block_public_policy = true
-  policy_statements = [
-    {
+  policy_statements = {
+    read = {
       sid = "AllowAccountRead"
       principals = [{
         type        = "AWS"
@@ -48,7 +48,7 @@ module "secrets_manager" {
       actions   = ["secretsmanager:GetSecretValue"]
       resources = ["*"]
     }
-  ]
+  }
 
   # Version
   create_random_password           = true
@@ -69,8 +69,8 @@ module "secrets_manager_rotate" {
   # Policy
   create_policy       = true
   block_public_policy = true
-  policy_statements = [
-    {
+  policy_statements = {
+    lambda = {
       sid = "LambdaReadWrite"
       principals = [{
         type        = "AWS"
@@ -83,8 +83,8 @@ module "secrets_manager_rotate" {
         "secretsmanager:UpdateSecretVersionStage",
       ]
       resources = ["*"]
-    },
-    {
+    }
+    account = {
       sid = "AccountDescribe"
       principals = [{
         type        = "AWS"
@@ -93,7 +93,7 @@ module "secrets_manager_rotate" {
       actions   = ["secretsmanager:DescribeSecret"]
       resources = ["*"]
     }
-  ]
+  }
 
   # Version
   ignore_secret_changes = true
