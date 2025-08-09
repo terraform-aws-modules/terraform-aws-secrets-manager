@@ -101,7 +101,7 @@ module "secrets_manager_rotate" {
     engine   = "mariadb",
     host     = "mydb.cluster-123456789012.us-east-1.rds.amazonaws.com",
     username = "Bill",
-    password = "ThisIsMySuperSecretString12356!"
+    password = "ThisIsMySuperSecretString12356!",
     dbname   = "mydb",
     port     = 3306
   })
@@ -152,13 +152,13 @@ data "aws_iam_policy_document" "this" {
 
 module "lambda" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "~> 6.0"
+  version = "~> 8.0"
 
   function_name = local.name
   description   = "Example Secrets Manager secret rotation lambda function"
 
   handler     = "function.lambda_handler"
-  runtime     = "python3.10"
+  runtime     = "python3.13"
   timeout     = 60
   memory_size = 512
   source_path = "${path.module}/function.py"
