@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v1.3.1...v2.0.0) (2025-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update Terraform and AWS provider versions to `1.11` and `6.0` respectively (#14)
+
+### Features
+
+* Update Terraform and AWS provider versions to `1.11` and `6.0` respectively ([#14](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/issues/14)) ([850b8bd](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/commit/850b8bd59ce1b0f42c40c52d4c61022bebc38def))
+
 ## [1.3.1](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v1.3.0...v1.3.1) (2024-10-11)
 
 
