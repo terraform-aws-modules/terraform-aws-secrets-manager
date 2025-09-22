@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.6"
+  required_version = ">= 1.8" # Without ephemeral and write-only support
 
   required_providers {
     aws = {
