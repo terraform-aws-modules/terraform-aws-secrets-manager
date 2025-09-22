@@ -4,14 +4,14 @@ locals {
   secret_string_wo_version = var.create_random_password ? coalesce(var.secret_string_wo_version, 0) : var.secret_string_wo_version
 }
 
-variable "secret_string_wo" {
+variable "secret_string_wo" { # tflint-ignore: terraform_standard_module_structure
   description = "Specifies text data that you want to encrypt and store in this version of the secret. This is required if `secret_binary` or `secret_string` is not set"
   type        = string
   default     = null
   ephemeral   = true
 }
 
-variable "secret_string_wo_version" {
+variable "secret_string_wo_version" { # tflint-ignore: terraform_standard_module_structure
   description = "Used together with `secret_string_wo` to trigger an update. Increment this value when an update to `secret_string_wo` is required"
   type        = string
   default     = null
