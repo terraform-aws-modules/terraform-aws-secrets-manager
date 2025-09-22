@@ -141,19 +141,6 @@ variable "secret_string" {
   default     = null
 }
 
-variable "secret_string_wo" {
-  description = "Specifies text data that you want to encrypt and store in this version of the secret. This is required if `secret_binary` or `secret_string` is not set"
-  type        = string
-  default     = null
-  ephemeral   = true
-}
-
-variable "secret_string_wo_version" {
-  description = "Used together with `secret_string_wo` to trigger an update. Increment this value when an update to `secret_string_wo` is required"
-  type        = string
-  default     = null
-}
-
 variable "version_stages" {
   description = "Specifies a list of staging labels that are attached to this version of the secret. A staging label must be unique to a single version of the secret"
   type        = list(string)
