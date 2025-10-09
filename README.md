@@ -156,6 +156,7 @@ No modules.
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Determines whether a policy will be created | `bool` | `false` | no |
 | <a name="input_create_random_password"></a> [create\_random\_password](#input\_create\_random\_password) | Determines whether an ephemeral random password will be generated for `secret_string_wo` | `bool` | `false` | no |
+| <a name="input_create_secret_version"></a> [create\_secret\_version](#input\_create\_secret\_version) | Determines whether a secret version will be created | `bool` | `true` | no |
 | <a name="input_description"></a> [description](#input\_description) | A description of the secret | `string` | `null` | no |
 | <a name="input_enable_rotation"></a> [enable\_rotation](#input\_enable\_rotation) | Determines whether secret rotation is enabled | `bool` | `false` | no |
 | <a name="input_force_overwrite_replica_secret"></a> [force\_overwrite\_replica\_secret](#input\_force\_overwrite\_replica\_secret) | Accepts boolean value to specify whether to overwrite a secret with the same name in the destination Region | `bool` | `null` | no |
