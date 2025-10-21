@@ -117,6 +117,20 @@ module "secrets_manager_rotate" {
   tags = local.tags
 }
 
+module "secrets_manager_no_version" {
+  source = "../.."
+
+  # Secret
+  name_prefix             = local.name
+  description             = "Example Secrets Manager secret without version"
+  recovery_window_in_days = 0
+
+  # Version
+  create_secret_version = false
+
+  tags = local.tags
+}
+
 module "secrets_manager_disabled" {
   source = "../.."
 

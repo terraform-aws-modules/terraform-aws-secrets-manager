@@ -94,7 +94,7 @@ resource "aws_secretsmanager_secret_policy" "this" {
 ################################################################################
 
 resource "aws_secretsmanager_secret_version" "this" {
-  count = var.create && !(var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
+  count = var.create && var.create_secret_version && !(var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
 
   region = var.region
 
@@ -107,7 +107,7 @@ resource "aws_secretsmanager_secret_version" "this" {
 }
 
 resource "aws_secretsmanager_secret_version" "ignore_changes" {
-  count = var.create && (var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
+  count = var.create && var.create_secret_version && (var.enable_rotation || var.ignore_secret_changes) ? 1 : 0
 
   region = var.region
 
