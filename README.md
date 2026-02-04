@@ -37,6 +37,10 @@ module "secrets_manager" {
   # Version
   create_random_password           = true
   random_password_length           = 64
+  random_password_min_lower        = 1
+  random_password_min_numeric      = 1
+  random_password_min_special      = 1
+  random_password_min_upper        = 1
   random_password_override_special = "!@#$%^&*()_+"
 
   tags = {
@@ -166,6 +170,10 @@ No modules.
 | <a name="input_override_policy_documents"></a> [override\_policy\_documents](#input\_override\_policy\_documents) | List of IAM policy documents that are merged together into the exported document. In merging, statements with non-blank `sid`s will override statements with the same `sid` | `list(string)` | `[]` | no |
 | <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage | <pre>map(object({<br/>    sid           = optional(string)<br/>    actions       = optional(list(string))<br/>    not_actions   = optional(list(string))<br/>    effect        = optional(string)<br/>    resources     = optional(list(string))<br/>    not_resources = optional(list(string))<br/>    principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    not_principals = optional(list(object({<br/>      type        = string<br/>      identifiers = list(string)<br/>    })))<br/>    condition = optional(list(object({<br/>      test     = string<br/>      values   = list(string)<br/>      variable = string<br/>    })))<br/>  }))</pre> | `null` | no |
 | <a name="input_random_password_length"></a> [random\_password\_length](#input\_random\_password\_length) | The length of the generated random password | `number` | `32` | no |
+| <a name="input_random_password_min_lower"></a> [random\_password\_min\_lower](#input\_random\_password\_min\_lower) | Minimum number of lowercase alphabet characters in the result | `number` | `0` | no |
+| <a name="input_random_password_min_numeric"></a> [random\_password\_min\_numeric](#input\_random\_password\_min\_numeric) | Minimum number of numeric characters in the result | `number` | `0` | no |
+| <a name="input_random_password_min_special"></a> [random\_password\_min\_special](#input\_random\_password\_min\_special) | Minimum number of special characters in the result | `number` | `0` | no |
+| <a name="input_random_password_min_upper"></a> [random\_password\_min\_upper](#input\_random\_password\_min\_upper) | Minimum number of uppercase alphabet characters in the result | `number` | `0` | no |
 | <a name="input_random_password_override_special"></a> [random\_password\_override\_special](#input\_random\_password\_override\_special) | Supply your own list of special characters to use for string generation. This overrides the default character list in the special argument | `string` | `"!@#$%&*()-_=+[]{}<>:?"` | no |
 | <a name="input_recovery_window_in_days"></a> [recovery\_window\_in\_days](#input\_recovery\_window\_in\_days) | Number of days that AWS Secrets Manager waits before it can delete the secret. This value can be `0` to force deletion without recovery or range from `7` to `30` days. The default value is `30` | `number` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where the resource(s) will be managed. Defaults to the Region set in the provider configuration | `string` | `null` | no |

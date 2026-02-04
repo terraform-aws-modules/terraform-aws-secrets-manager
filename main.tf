@@ -131,8 +131,15 @@ ephemeral "random_password" "this" {
   count = var.create && var.create_random_password ? 1 : 0
 
   length           = var.random_password_length
+  lower            = true
+  min_lower        = var.random_password_min_lower
+  numeric          = true
+  min_numeric      = var.random_password_min_numeric
   special          = true
+  min_special      = var.random_password_min_special
   override_special = var.random_password_override_special
+  upper            = true
+  min_upper        = var.random_password_min_upper
 }
 
 ################################################################################

@@ -53,6 +53,10 @@ module "secrets_manager" {
   # Version
   create_random_password           = true
   random_password_length           = 64
+  random_password_min_lower        = 1
+  random_password_min_numeric      = 1
+  random_password_min_special      = 1
+  random_password_min_upper        = 1
   random_password_override_special = "!@#$%^&*()_+"
 
   tags = local.tags
