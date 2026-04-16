@@ -112,6 +112,26 @@ module "secrets_manager" {
 }
 ```
 
+### Metadata Only (Value Managed Externally)
+
+```hcl
+module "secrets_manager" {
+  source = "terraform-aws-modules/secrets-manager/aws"
+
+  # Secret
+  name        = "my-app/prod/api-key"
+  description = "API key managed by CI/CD pipeline"
+
+  # Skip secret version creation - value is managed outside Terraform
+  create_secret_version = false
+
+  tags = {
+    Environment = "Production"
+    Project     = "Example"
+  }
+}
+```
+
 ## Examples
 
 Examples codified under the [`examples`](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/tree/master/examples) are intended to give users references for how to use the module(s) as well as testing/validating changes to the source code of the module. If contributing to the project, please be sure to make any appropriate updates to the relevant examples to allow maintainers to test your changes and to keep the examples up to date for users. Thank you!
@@ -122,7 +142,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.11 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.7 |
@@ -130,7 +150,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
 
 ## Modules
@@ -140,7 +160,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_secretsmanager_secret.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_policy) | resource |
 | [aws_secretsmanager_secret_rotation.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_rotation) | resource |
@@ -151,11 +171,12 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_block_public_policy"></a> [block\_public\_policy](#input\_block\_public\_policy) | Makes an optional API call to Zelkova to validate the Resource Policy to prevent broad access to your secret | `bool` | `null` | no |
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Determines whether a policy will be created | `bool` | `false` | no |
 | <a name="input_create_random_password"></a> [create\_random\_password](#input\_create\_random\_password) | Determines whether an ephemeral random password will be generated for `secret_string_wo` | `bool` | `false` | no |
+| <a name="input_create_secret_version"></a> [create\_secret\_version](#input\_create\_secret\_version) | Determines whether a secret version is created. Set to `false` when secret values are managed externally (manually, by CI, or by a rotation process outside Terraform) | `bool` | `true` | no |
 | <a name="input_description"></a> [description](#input\_description) | A description of the secret | `string` | `null` | no |
 | <a name="input_enable_rotation"></a> [enable\_rotation](#input\_enable\_rotation) | Determines whether secret rotation is enabled | `bool` | `false` | no |
 | <a name="input_force_overwrite_replica_secret"></a> [force\_overwrite\_replica\_secret](#input\_force\_overwrite\_replica\_secret) | Accepts boolean value to specify whether to overwrite a secret with the same name in the destination Region | `bool` | `null` | no |
@@ -184,7 +205,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_secret_arn"></a> [secret\_arn](#output\_secret\_arn) | The ARN of the secret |
 | <a name="output_secret_binary"></a> [secret\_binary](#output\_secret\_binary) | The secret binary |
 | <a name="output_secret_id"></a> [secret\_id](#output\_secret\_id) | The ID of the secret |
