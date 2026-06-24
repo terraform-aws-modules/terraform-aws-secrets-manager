@@ -155,7 +155,7 @@ variable "secret_string_wo_version" {
 }
 
 variable "version_stages" {
-  description = "Specifies a list of staging labels that are attached to this version of the secret. A staging label must be unique to a single version of the secret"
+  description = "Specifies a list of staging labels that are attached to this version of the secret. A staging label must be unique to a single version of the secret. When `ignore_secret_changes` or `enable_rotation` is enabled and this is not set, the module defaults to `[\"AWSCURRENT\", \"TERRAFORM_MANAGED\"]` so AWS does not garbage-collect the Terraform-tracked version"
   type        = list(string)
   default     = null
 }

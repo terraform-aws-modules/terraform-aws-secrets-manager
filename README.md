@@ -112,6 +112,21 @@ module "secrets_manager" {
 }
 ```
 
+### Persisting the Terraform-tracked version
+
+When `ignore_secret_changes = true` or `enable_rotation = true`, the module attaches a `TERRAFORM_MANAGED` custom staging label (in addition to `AWSCURRENT`) to the version it creates. AWS Secrets Manager garbage-collects any version that loses all of its staging labels, which happens after two or more external `PutSecretValue` calls (Console, CLI, or a rotation Lambda). Without a persistent label the Terraform-tracked version is eventually deleted, and the next plan recreates the secret, overwriting the real value despite `ignore_secret_changes`. The custom label survives no matter how many times `AWSCURRENT` moves, so the tracked version is never collected.
+
+Set `version_stages` explicitly to override this default.
+
+Existing secrets created before this behavior was added still reference a version without the custom label. Add it once so the version is no longer eligible for collection:
+
+```bash
+aws secretsmanager update-secret-version-stage \
+  --secret-id <secret-name> \
+  --version-stage TERRAFORM_MANAGED \
+  --move-to-version-id <version-id-from-terraform-state>
+```
+
 ## Examples
 
 Examples codified under the [`examples`](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/tree/master/examples) are intended to give users references for how to use the module(s) as well as testing/validating changes to the source code of the module. If contributing to the project, please be sure to make any appropriate updates to the relevant examples to allow maintainers to test your changes and to keep the examples up to date for users. Thank you!
@@ -131,7 +146,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.51.0 |
 
 ## Modules
 
@@ -179,7 +194,7 @@ No modules.
 | <a name="input_secret_string_wo_version"></a> [secret\_string\_wo\_version](#input\_secret\_string\_wo\_version) | Used together with `secret_string_wo` to trigger an update. Increment this value when an update to `secret_string_wo` is required | `string` | `null` | no |
 | <a name="input_source_policy_documents"></a> [source\_policy\_documents](#input\_source\_policy\_documents) | List of IAM policy documents that are merged together into the exported document. Statements must have unique `sid`s | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
-| <a name="input_version_stages"></a> [version\_stages](#input\_version\_stages) | Specifies a list of staging labels that are attached to this version of the secret. A staging label must be unique to a single version of the secret | `list(string)` | `null` | no |
+| <a name="input_version_stages"></a> [version\_stages](#input\_version\_stages) | Specifies a list of staging labels that are attached to this version of the secret. A staging label must be unique to a single version of the secret. When `ignore_secret_changes` or `enable_rotation` is enabled and this is not set, the module defaults to `["AWSCURRENT", "TERRAFORM_MANAGED"]` so AWS does not garbage-collect the Terraform-tracked version | `list(string)` | `null` | no |
 
 ## Outputs
 

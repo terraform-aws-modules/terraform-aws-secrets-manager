@@ -116,7 +116,9 @@ resource "aws_secretsmanager_secret_version" "ignore_changes" {
   secret_string            = var.secret_string
   secret_string_wo         = var.create_random_password ? ephemeral.random_password.this[0].result : var.secret_string_wo
   secret_string_wo_version = var.create_random_password ? coalesce(var.secret_string_wo_version, 0) : var.secret_string_wo_version
-  version_stages           = var.version_stages
+  # Keep a persistent custom staging label so AWS does not garbage-collect the
+  # Terraform-tracked version after external updates move AWSCURRENT off of it.
+  version_stages = coalesce(var.version_stages, ["AWSCURRENT", "TERRAFORM_MANAGED"])
 
   lifecycle {
     ignore_changes = [
