@@ -6,6 +6,8 @@ You may want to use a single Terragrunt configuration file to manage multiple re
 
 This wrapper does not implement any extra functionality.
 
+> **Note on ephemeral secret values:** the root module supports passing ephemeral values as a secret's value via `secret_string_wo` / `secret_string_wo_version` (see the root [README](../README.md)). That input cannot be routed through this wrapper's `items` map, because Terraform's `for_each` meta-argument — which `items` drives — is not allowed to accept ephemeral-derived values. This is a restriction in Terraform itself (see [Ephemeral Values](https://developer.hashicorp.com/terraform/language/values/ephemeral)), and there is no wrapper-level workaround. If you need an ephemeral secret value, call the root module directly for that secret instead of going through this wrapper.
+
 ## Usage with Terragrunt
 
 `terragrunt.hcl`:
