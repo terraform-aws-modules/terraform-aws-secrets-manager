@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v2.1.1...v2.2.0) (2026-09-28)
+
+### Features
+
+* Add `create_secret_version` flag to skip secret version management ([#25](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/issues/25)) ([31ac116](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/commit/31ac1165ab0c7e62421da2c3bb9ce15ccac97a7e))
+
 ## [2.1.1](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v2.1.0...v2.1.1) (2026-09-18)
 
 ### Bug Fixes
