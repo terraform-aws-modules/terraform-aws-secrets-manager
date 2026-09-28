@@ -123,6 +123,12 @@ variable "block_public_policy" {
 # Version
 ################################################################################
 
+variable "create_secret_version" {
+  description = "Determines whether a secret version is created. Set to `false` when secret values are managed externally (manually, by CI, or by a rotation process outside Terraform)"
+  type        = bool
+  default     = true
+}
+
 variable "ignore_secret_changes" {
   description = "Determines whether or not Terraform will ignore changes made externally to `secret_string` or `secret_binary`. Changing this value after creation is a destructive operation"
   type        = bool

@@ -117,6 +117,20 @@ module "secrets_manager_rotate" {
   tags = local.tags
 }
 
+module "secrets_manager_external" {
+  source = "../.."
+
+  # Secret
+  name_prefix             = "${local.name}-external"
+  description             = "Secret with externally managed value"
+  recovery_window_in_days = 0
+
+  # Version - managed externally (e.g., by CI/CD or manual process)
+  create_secret_version = false
+
+  tags = local.tags
+}
+
 module "secrets_manager_disabled" {
   source = "../.."
 
