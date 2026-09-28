@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v2.1.0...v2.1.1) (2026-09-18)
+
+### Bug Fixes
+
+* Document known Terraform/OpenTofu limitations in README ([#32](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/issues/32)) ([c137f99](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/commit/c137f99c967c7546442d4b393741495c18c3eb2a))
+* Update GitHub Actions and pre-commit hook versions ([#27](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/issues/27)) ([521ed04](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/commit/521ed04d3f71aaaa2bf06e0aeb1f5b6d8fdbd667))
+
 ## [2.1.0](https://github.com/terraform-aws-modules/terraform-aws-secrets-manager/compare/v2.0.1...v2.1.0) (2026-01-08)
 
 ### Features
